@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     db.select('*').from('accounts')
         .where({ id: req.params.id })
-        .first()
+        .first()//give me the first item from the array and will only send an object to client than sending an array.
         .then(account => {
             res.status(200).json(account);
         })
