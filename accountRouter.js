@@ -29,15 +29,38 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
+    db('accounts')
+      .insert(req.body)
+      .then(ids => {
+        res.status(200).json(ids);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
 });
 
 router.put('/:id', (req, res) => {
-
+    db('accounts')
+      .where({ id: req.params.id })
+      .update(req.body)
+      .then(count => {
+        res.status(200).json(count);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
 });
 
 router.delete('/:id', (req, res) => {
-
+    db('accounts')
+    .where({ id: req.params.id })
+    .del()
+    .then(count => {
+      res.status(200).json(count);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
 });
 
 module.exports = router;
